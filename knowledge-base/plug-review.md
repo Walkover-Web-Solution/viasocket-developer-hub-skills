@@ -67,7 +67,7 @@ Rate each check from 0 to 100. If a check covers many items, the rating is the p
     Rate it.
 14. **Reusable components.**
     - Components are made only for dropdowns and dynamic fields.
-    - Every component used is mapped on the version, errorComponent included.
+    - Every component used is mapped on the version, errorComponent included. One row per component. Instant triggers map the blocks that call it (`performsubscribe`, `performunsubscribe`, `modifytriggerdata`, `performlist`), not `perform`.
     - No component calls another component.
     - A mapped component is never edited. Changes go into a new one.
 
