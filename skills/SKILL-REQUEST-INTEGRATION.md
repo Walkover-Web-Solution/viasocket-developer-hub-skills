@@ -266,9 +266,11 @@ Never call `GetActionVersionCount` or `/openai/dh/getActionTriggersSuggestions` 
 - **Mapping & Unmapping** — every component a version's code or dropdowns call, plus `errorComponent`:
   `create/action_version_component_table { action_version_id, component_id, action_id, pluginrecordid, orgid,
   metadata: { componentdependson: { perform: true, <fieldKey>: true } } }` (keys = block names or the dynamic field's
-  key, never a group path). Existing version → GET its mappings first (`dhGetUsedComponentInActionVersionDetails`);
-  mapped → `PUT update/action_version_component_table?identifier=<rowid>&filter=dhUpdateReusableComponentDetails` with
-  the full `metadata`. Unmap component (never on published versions) → `PATCH delete/action_version_component_table`
+  key, never a group path). One row per component. Action blocks use `perform`. Instant-trigger blocks use
+  `performsubscribe`, `performunsubscribe`, `modifytriggerdata`, and `performlist` — not `perform`. Before creating a
+  row, GET the version's mappings (`dhGetUsedComponentInActionVersionDetails`). If that `component_id` is already
+  mapped, `PUT update/action_version_component_table?identifier=<rowid>&filter=dhUpdateReusableComponentDetails` with
+  the merged `componentdependson`. Never create a second row for the same component. Unmap component (never on published versions) → `PATCH delete/action_version_component_table`
   `{ action_version_id, component_id, status: "drafted" }`.
 - Never send `rtllayer` (auto-publishes), `isAIActionTrigger`, `functionId`, or a body-level `isUserOnDh` on writes.
   **Never** `status: "published"`, `actionversionrecordid`, or `publishdescription` — this run does not publish.

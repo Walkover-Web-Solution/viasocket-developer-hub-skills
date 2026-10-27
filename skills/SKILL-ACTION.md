@@ -216,9 +216,11 @@ Never call `GetActionVersionCount` or `/openai/dh/getActionTriggersSuggestions` 
 - **Mapping & Unmapping** — every component the version's code or dropdowns call, plus `errorComponent`: `POST
   create/action_version_component_table { action_version_id, component_id, action_id, pluginrecordid, orgid,
   metadata: { componentdependson: { perform: true, <fieldKey>: true } } }` (keys = block names or the dynamic field's
-  key, never a group path). New or copied version → create directly (copies have no mappings); existing draft → GET
-  its mappings first (`dhGetUsedComponentInActionVersionDetails`); mapped → `PUT update/action_version_component_table?identifier=<rowid>&filter=dhUpdateReusableComponentDetails`
-  with the full `metadata`. Unmap component (never on published versions) → `PATCH delete/action_version_component_table` `{ action_version_id, component_id, status: "drafted" }`.
+  key, never a group path). One row per component. Action blocks use `perform`. Instant-trigger blocks use
+  `performsubscribe`, `performunsubscribe`, `modifytriggerdata`, and `performlist` — not `perform`. New or copied
+  version → create directly (copies have no mappings); existing draft → GET its mappings first
+  (`dhGetUsedComponentInActionVersionDetails`). If that `component_id` is already mapped, `PUT update/action_version_component_table?identifier=<rowid>&filter=dhUpdateReusableComponentDetails`
+  with the merged `componentdependson`. Never create a second row for the same component. Unmap component (never on published versions) → `PATCH delete/action_version_component_table` `{ action_version_id, component_id, status: "drafted" }`.
 - Never send `rtllayer`, `isAIActionTrigger`, `functionId`, or a body-level `isUserOnDh` on writes;
   `status: "published"`, `actionversionrecordid`, `publishdescription` only in §4.3. `plugins` updates
   replace `metadata` → always use `MERGE` (keeps existing keys, deep-merges `aiContext`, appends `aiLogs`); `actions` updates send changed columns only (§2). Do that
