@@ -53,7 +53,7 @@ Specialized agents called by the Master Planner to handle specific parts of the 
 | [dh-plug-name-description.md](sub-agents/dh-plug-name-description.md) | **Action Metadata Generator** | Generates clear, consistent action names, descriptions, types, and categories. |
 | [dh-reusable-component.md](sub-agents/dh-reusable-component.md) | **Reusable Component Generator** | Specializes in creating reusable components for dynamic dropdowns, multiselects, and dynamic fields. |
 
-### 3. DH-Review ([dh-review-chat.md](dh-review-chat.md))
+### 3. DH-Review ([dh-review-agent.md](dh-review-agent.md))
 
 The final quality assurance reviewer agent that:
 1. **Validates** the generated input fields JSON and perform code.
