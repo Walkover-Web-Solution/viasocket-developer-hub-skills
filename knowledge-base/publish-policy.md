@@ -19,6 +19,7 @@ maintenance agent follow this file; where another file disagrees, this file wins
 | --- | ----- | ----------- |
 | A developer's agent, `SKILL-PLUG-CREATION.md` / `SKILL-ACTION.md` | the developer's own (in `list_plugins`) | only after the developer says yes in the chat, then private or public as they choose (each skill's §4.3) |
 | A developer's agent, `SKILL-CONNECTION.md` / `SKILL-REQUEST-INTEGRATION.md` | the developer's own | never: they leave drafts |
+| viaSocket's request-integration agent (requests from #request-for-plug, `SKILL-REQUEST-INTEGRATION.md`) | viaSocket's, in the master org | on the first run for a request: never, it leaves drafts. When a viaSocket developer asks for it in a reply in the request's thread: after it has made a test connection, the dry runs pass and the review passes (`SKILL-REQUEST-INTEGRATION.md` §6); privately unless the reply says public |
 | A developer's agent | viaSocket's (used in flows, not in `list_plugins`) | never: no edits at all; `report_feedback` instead |
 | viaSocket's maintenance agent (from `report_feedback`) | viaSocket's | without asking, only (a) a new action or trigger, or (b) a backward-compatible new version of an existing one; anything else stays a draft and a person decides in Slack |
 | viaSocket's review agent (from `report_published`) | a developer's plug that was just published | after review and an end-to-end test: new actions/triggers, backward-compatible new versions, and the switch to the viaSocket OAuth version (below); never the developer's own connection versions or OAuth app |
